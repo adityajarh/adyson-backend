@@ -41,8 +41,6 @@ def google_login(body: GoogleIn, db: Session = Depends(get_db)):
 
     email = info["email"].strip().lower()
     is_admin = email == ADMIN_EMAIL
-    if not is_admin and not db.get(AllowedEmail, email):
-        raise HTTPException(403, "Ye account allowed nahi hai")
 
     user = db.query(User).filter(User.email == email).first()
     if not user:
